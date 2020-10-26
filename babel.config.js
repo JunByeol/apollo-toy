@@ -23,5 +23,6 @@ module.exports = {
         },
       },
     ],
+    'babel-plugin-import-graphql',
   ],
 };
