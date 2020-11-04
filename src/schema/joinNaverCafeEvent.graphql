@@ -1,3 +1,0 @@
-type JoinNaverCafeEvent implements Event {
-  id: ID!
-}

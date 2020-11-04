@@ -1,0 +1,28 @@
+type NaverCafeJoinEventPayload {
+  registrantInfo(id: String): NaverCafeJoinEventRegistrantInfo
+}
+
+type NaverCafeJoinEventRegistrantInfo {
+  joined: Boolean!
+}
+
+type NaverCafeJoinEvent implements Event {
+  id: ID!
+
+  naverCafeJoinEventPayload: NaverCafeJoinEventPayload!
+}
+
+input NaverCafeJoinEventMutation_joinInput {
+  preRegistrantId: String!
+  secret: String!
+}
+
+type NaverCafeJoinEventMutation_joinPayload {
+  succeed: Boolean!
+
+  event: NaverCafeJoinEvent!
+}
+
+type NaverCafeJoinEventMutation {
+  join(input: NaverCafeJoinEventMutation_joinInput!): NaverCafeJoinEventMutation_joinPayload!
+}

@@ -12,6 +12,10 @@ type CkStampEvent implements Event {
   ckStampEventPayload: CkStampEventPayload!
 }
 
+type CkStampEventMutation {
+  succeed: Boolean!
+}
+
 # Query example:
 #
 # {

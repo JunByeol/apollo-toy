@@ -1,0 +1,28 @@
+# 얍
+type FacebookLikeEventPayload {
+  registrantInfo(id: String): FacebookLikeEventRegistrantInfo
+}
+
+type FacebookLikeEventRegistrantInfo {
+  liked: Boolean!
+}
+
+type FacebookLikeEvent implements Event {
+  id: ID!
+
+  facebookLikeEventPayload: FacebookLikeEventPayload!
+}
+
+input FacebookLikeEventMutation_likeInput {
+  preRegistrantId: String!
+}
+
+type FacebookLikeEventMutation_likePayload {
+  succeed: Boolean!
+
+  event: FacebookLikeEvent!
+}
+
+type FacebookLikeEventMutation {
+  like(input: FacebookLikeEventMutation_likeInput!): FacebookLikeEventMutation_likePayload!
+}

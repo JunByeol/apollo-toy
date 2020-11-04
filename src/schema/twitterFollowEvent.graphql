@@ -1,0 +1,27 @@
+type FollowTwitterAccountEventPayload {
+  registrantInfo(id: String): FollowTwitterAccountEventRegistrantInfo
+}
+
+type FollowTwitterAccountEventRegistrantInfo {
+  followed: Boolean!
+}
+
+type TwitterFollowEvent implements Event {
+  id: ID!
+
+  followTwitterAccountEventPayload: FollowTwitterAccountEventPayload
+}
+
+input TwitterFollowEventMutation_joinInput {
+  preRegistrantId: String!
+}
+
+type TwitterFollowEventMutation_joinPayload {
+  succeed: Boolean!
+
+  event: NaverCafeJoinEvent!
+}
+
+type TwitterFollowEventMutation {
+  join(input: TwitterFollowEventMutation_joinInput!): TwitterFollowEventMutation_joinPayload!
+}

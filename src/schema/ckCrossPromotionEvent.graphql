@@ -1,0 +1,23 @@
+type CkCroCrossPromotionEventPayload {
+
+}
+
+type CkCroCrossPromotionEvent implements Event {
+  id: ID!
+
+  ckCroCrossPromotionEventPayload: CkCroCrossPromotionEventPayload!
+}
+
+input CkCroCrossPromotionEvent_registerMidInput {
+  mid: String!
+  preRegistrantId: String!
+}
+
+type CkCroCrossPromotionEvent_registerMidPayload {
+  event: CkCroCrossPromotionEvent!
+}
+
+type CkCroCrossPromotionEventMutation {
+  succeed: Boolean!
+  registerMid(input: CkCroCrossPromotionEvent_registerMidInput): CkCroCrossPromotionEvent_registerMidPayload!
+}

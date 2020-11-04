@@ -1,3 +1,0 @@
-type FollowTwitterAccountEvent implements Event {
-  id: ID!
-}
