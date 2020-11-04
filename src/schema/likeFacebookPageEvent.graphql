@@ -1,0 +1,4 @@
+# 얍
+type LikeFacebookPageEvent implements Event {
+  id: ID!
+}

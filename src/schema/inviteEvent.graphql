@@ -1,0 +1,60 @@
+type InvitationEventRankingConnection {
+  totalCount: Int!
+  edges: [InvitationEventRankingEdge!]!
+  nodes: [InvitationEventRanking!]!
+  pageInfo: PageInfo!
+}
+
+type InvitationEventRankingEdge {
+  node: InvitationEventRanking!
+  cursor: String!
+}
+
+type InvitationEventRanking {
+  rank: Int!
+  maskedPhoneNumber: String!
+  inviteeCount: Int!
+}
+
+type InvitationEventRegistrantInfo {
+  inviteeCount: Int!
+  inviteCode: String!
+}
+
+type InvitationEventPayload {
+  ranking: InvitationEventRankingConnection!
+  registrantInfo(id: String): InvitationEventRegistrantInfo
+}
+
+type InvitationEvent implements Event {
+  id: ID!
+
+  invitationEventPayload: InvitationEventPayload!
+}
+
+# Query example:
+
+# {
+#   events(input: {
+#     targetId: "event-target-id",
+#     registrantId: "registrant-id",
+#   }) {
+#     id
+#     ...on InvitationEvent {
+#       invitationEventPayload {
+#         ranking(first: 10, order: ASC) {
+#           nodes {
+#             id
+#             rank
+#             maskedPhoneNumber
+#             inviteeCount
+#           }
+#         }
+#         registrantInfo {
+#           inviteeCount
+#           inviteCode
+#         }
+#       }
+#     }
+#   }
+# }

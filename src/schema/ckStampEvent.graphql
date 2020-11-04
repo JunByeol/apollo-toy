@@ -1,0 +1,28 @@
+type CkStampEventPayload {
+  registrantInfo(id: String): CkStampEventRegistrantInfo
+}
+
+type CkStampEventRegistrantInfo {
+  stampCount: Int!
+}
+
+type CkStampEvent implements Event {
+  id: ID!
+
+  ckStampEventPayload: CkStampEventPayload!
+}
+
+# Query example:
+#
+# {
+#   events(input: {
+#     targetId: "event-target-id",
+#     registrantId: "registrant-id",
+#   }) {
+#     ...on CkStampEvent {
+#       ckStampEventPayload {
+#         stampCount
+#       }
+#     }
+#   }
+# }

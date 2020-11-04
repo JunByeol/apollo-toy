@@ -1,0 +1,50 @@
+type PageInfo {
+  totalCount: Int!
+}
+
+enum ImageSize {
+  Small
+  Medium
+  Large
+}
+
+type ImageArtifact {
+  src: URL!
+  width: Int!
+  height: Int!
+}
+
+input EventFilter {
+  eventTargetId: String
+  preRegistrantId: String
+}
+
+input EventTargetFilter {
+  eventTargetId: String
+  game: String
+  region: String
+}
+
+interface EventTarget {
+  id: ID!
+  game: String!
+  region: String!
+  period: DatePeriod!
+}
+
+type EventTargetEventAlive implements EventTarget {
+  id: ID!
+  game: String!
+  region: String!
+  period: DatePeriod!
+  events: [Event!]!
+}
+
+interface Event {
+  id: ID!
+}
+
+type PreRegistrant {
+  id: ID!
+  eventTarget: EventTarget
+}

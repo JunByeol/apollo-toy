@@ -1,0 +1,38 @@
+# 얍
+type CkCitizenCardEventPayload {
+  registrantInfo(id: String): CkCitizenCardEventRegistrantInfo
+}
+
+type CkCitizenCardEventRegistrantInfo {
+  nameOnCard: String!
+  generatedImage(size: ImageSize! = SMALL): ImageArtifact!
+}
+
+type CkCitizenCardEvent implements Event {
+  id: ID!
+
+  ckCitizenCardEventPayload: CkCitizenCardEventPayload!
+}
+
+# Query example:
+#
+# {
+#   events(input: {
+#     targetId: "event-target-id",
+#     registrantId: "registrant-id",
+#   }) {
+#     id
+#     ...on CkCitizenCardEvent {
+#       ckCitizenCardEventPayload {
+#         registrantInfo {
+#           nameOnCard
+#           generatedImage(size: SMALL) {
+#             src
+#             width
+#             height
+#           }
+#         }
+#       }
+#     }
+#   }
+# }

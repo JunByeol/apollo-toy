@@ -1,30 +1,20 @@
-import { ApolloServer } from 'apollo-server';
+import path from 'path';
+import createInstance from 'fastify';
+import { ApolloServer } from 'apollo-server-fastify';
 import schema from './schema.graphql';
 
 async function main() {
+  const app = createInstance();
   const typeDefs = schema;
-
-  const books = [
-    {
-      title: 'The Awakening',
-      author: 'Kate Chopi',
-    },
-    {
-      title: 'City of Glass',
-      author: 'Paul Auster',
-    },
-  ];
-
-  const resolvers = {
-    Query: {
-      books: () => books,
-    },
-  };
-
+  const resolvers = {};
   const server = new ApolloServer({ typeDefs, resolvers });
-
-  const { url } = await server.listen();
+  app.register(server.createHandler());
+  // eslint-disable-next-line @typescript-eslint/no-var-requires
+  app.register(require('fastify-static'), {
+    root: path.join(__dirname, 'public'),
+  });
+  const url = await app.listen(8000);
   console.log(`🚀  Server ready at ${url}`);
 }
 
-main().catch(e => console.error(e));
+main().catch(console.error);

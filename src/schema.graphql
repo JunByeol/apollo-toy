@@ -1,8 +1,88 @@
-  type Book {
-    title: String
-    author: String
-  }
+#import "./schema/common.graphql"
+#import "./schema/inviteEvent.graphql"
 
-  type Query {
-    books: [Book]
-  }
+#import "./schema/likeFacebookPageEvent.graphql"
+#import "./schema/followTwitterAccountEvent.graphql"
+#import "./schema/joinNaverCafeEvent.graphql"
+#import "./schema/ckStampEvent.graphql"
+#import "./schema/ckCitizenCardEvent.graphql"
+
+scalar Date
+scalar DatePeriod
+scalar URL
+
+schema {
+  query: Query
+  mutation: Mutation
+}
+
+type Query {
+  eventTarget(id: String!): EventTarget!
+  eventTargets(filter: EventTargetFilter): [EventTarget!]!
+  preRegistrant(id: String!): PreRegistrant!
+  event(id: ID!): Event!
+  events(filter: EventFilter): [Event!]!
+  authSessions: [AuthSession!]!
+}
+
+input PreRegister_Email_NoAuthInput {
+  email: String!
+  eventTargetId: String!
+}
+
+type PreRegister_Email_NoAuthPayload {
+  eventTarget: EventTarget!
+}
+
+type Resolve_Email_NoAuthPayload {
+  eventTarget: EventTarget!
+}
+
+input PreRegister_Sms_OtpAuthInput {
+  phoneNumber: String!
+  eventTargetId: String!
+}
+
+type PreRegister_Sms_OtpAuthPayload {
+  eventTarget: EventTarget!
+}
+
+input Resolve_Sms_OtpAuthInput {
+  sessionId: String
+  otp: String!
+}
+
+type Resolve_Sms_OtpAuthPayload {
+  session: AuthSession!
+}
+
+type Mutation {
+  preRegister_sms_otpAuth(input: PreRegister_Sms_OtpAuthInput!): PreRegister_Sms_OtpAuthPayload!
+  resolve_sms_otpAuth(input: Resolve_Sms_OtpAuthInput!): Resolve_Sms_OtpAuthPayload! 
+
+  preRegister_email_noAuth(input: PreRegister_Email_NoAuthInput!): PreRegister_Email_NoAuthPayload!
+  resolve_email_noAuth: Resolve_Email_NoAuthPayload!
+}
+
+union AuthSession = Authenticated | LiveAuthSession | TimedOutAuthSession | TooManyFailedAuthSession
+
+type Authenticated {
+  id: ID!
+  preRegistrant: PreRegistrant!
+}
+
+type LiveAuthSession {
+  id: ID!
+  expiryDate: Date!
+  retryCount: Int!
+  reason: String
+}
+
+type TimedOutAuthSession {
+  id: ID!
+  expiryDate: Date!
+}
+
+type TooManyFailedAuthSession {
+  id: ID!
+}

@@ -7,8 +7,8 @@
   "scripts": {
     "lint": "eslint '**/*.{js,ts}'",
     "ts-node": "ts-node -r tsconfig-paths/register -T",
-    "start": "yarn babel-node -x .ts src/index.ts",
-    "dev": "yarn babel-watch -e .ts src/index.ts",
+    "start": "babel-node -x .ts src/index.ts",
+    "dev": "babel-watch -e .ts src/index.ts",
     "test": "jest"
   },
   "devDependencies": {
@@ -39,8 +39,11 @@
   },
   "dependencies": {
     "apollo-server": "^2.18.2",
+    "apollo-server-fastify": "^2.19.0",
     "core-js": "^3.6.5",
     "dotenv-safe": "^8.2.0",
+    "fastify": "^3.7.0",
+    "fastify-static": "^3.3.0",
     "graphql": "^15.3.0"
   }
 }
